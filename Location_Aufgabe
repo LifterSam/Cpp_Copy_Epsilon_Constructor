@@ -1,0 +1,47 @@
+/*
+Erstellt zwei Klassen(oder Strukturen) Person und Location.
+
+PERSON
+
+Person soll folgende Attribute haben :
+
+-"Name", soll über den Konstruktor zugewiesen werden.
+- "Kontostand", mit 100 initialisiert.
+
+- Außerdem soll es eine Methode "Dining" geben.
+- Dieser soll eine Location als Argument übergeben werden.
+- Die Methode die Speisekarte der Location aufrufen.
+Wenn die Person ein Menü wählt, soll ihr der Preis vom Kontostand abgezogen
+und den Einnahmen der Location gutgeschrieben werden.
+
+LOCATION
+
+Location soll folgende Attribute haben :
+
+-"Name", soll über den Konstruktor zugewiesen werden.
+- "Menu", soll über den Konstruktor zugewiesen werden.
+"Menu" soll ein geeigneter Container sein, um Namen
+und Preise der Gerichte abzubilden.
+- "Einnahmen", soll mit 0 initialisiert werden.
+
+- Außerdem soll es eine Methode "Show_Menu" geben.
+- Diese soll dem Gast die Speisekarte zeigen.
+
+- Beide Klassen modularisieren, falls noch nicht geschehen.
+
+- Setze die Rule of 5 für beide Klassen um.
+  - An der Klasse Person sollen alle Kopier- und Movekonstruktoren ausgeschaltet sein
+  - An der Klasse Location sollen nur die Movekonstruktoren ausgeschaltet sein.
+
+- Setze in jede Klasse eine statische Zählvariable und verwende sie in Kontruktoren
+  und Destruktoren.
+
+- Überlade den Operator + in der Location Klasse so, dass die jeweiligen
+  Speisekarten zusammengeführt werden.
+
+- Schreibe eine Funktion, die einen Vektor von Anzahl n Objekten der Person- oder der
+  Location- Klasse zurückgibt.
+
+- Vererbung
+    - Location -> Restaurant
+*/
