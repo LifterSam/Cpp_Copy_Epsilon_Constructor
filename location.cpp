@@ -36,7 +36,7 @@ Location& Location::operator=(const Location& other) {
 // er wird auch verwendet, denn wenn mit = delete deaktiviert, kann nicht mehr
 // kompiliert werden!!!
 // im cmake-file Optimierung deaktivieren:
-// "target_compile_options(OOP_Klassen_Person_Location PRIVATE -fno-elide-constructors)"
+// "target_compile_options(OOP_Cpp_Location_Restaurant PRIVATE -fno-elide-constructors)"
 // , dann kann man auch den Output sehen an der Stelle
 Location::Location(Location&& other) noexcept
     : name_(std::move(other.name_)), angebot_(std::move(other.angebot_)) {
