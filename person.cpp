@@ -53,7 +53,8 @@ Person& Person::operator=(Person&& other) noexcept {
     kontostand_ = other.kontostand_;
     other.kontostand_ = 100.0;
     return *this;
-}*/
+}
+*/
 
 // destructor
 Person::~Person(){
