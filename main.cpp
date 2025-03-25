@@ -1,28 +1,24 @@
-#include "person.h"     // person.h hat die location schon inkludiert, sonst kann
-                        // diese nicht übergeben werden an interne Methode,
-//#include "location.h" // deswegen muss location.h nicht in die main getan werden
+#include "person.h"     
 #include "restaurant.h"
 #include <iostream>
 
-//Menue u.A. von https://www.youtube.com/watch?v=GNZC1gXFaiU&t=624s
+// menue e.g. https://www.youtube.com/watch?v=GNZC1gXFaiU&t=624s
 
 using namespace std;
 
 int main()
-{   // Erstellen von zwei Kunden
-    { // hier erstelle ich einen Geltungsbereich(?) für die Konstruktoren und weil ich mit der
-        // statischen Methode prüfen will ob die statische Variable anzahlLocations wieder auf
-        // 0 gesetzt wird nachdem Geltungsbereich verlassen wurde
+{   // creation of two customers
+    { // creating a scope for the constructors to check if the static variable anzahlLocations resets 
+      // to 0 after exiting the scope using a static method
         Person Adalbert ("Friedknecht");
         Person Kloberella ("Kriemhilde", 1337);
         std::cout << "\n-----------------------------------------------------------------\n" << std::endl;
 
-        // Erstellen von Locations, ohne vorher eine Map einzeln zu erzeugen, sowie Operatorüberladung testen
         Restaurant Fuzo ("Fusion Zone", {
-                                                                  {"Bun Bo Nam Bo", 16.90},
-                                                                  {"Chicken Bao", 13.90},
-                                                                  {"Curyy Tofu", 14.90}
-                                                              },10);
+                                            {"Bun Bo Nam Bo", 16.90},
+                                            {"Chicken Bao", 13.90},
+                                            {"Curyy Tofu", 14.90}
+                                         },10); // 10 is for seats, new attribute after inheritance
 
         Location Gibier_Kishiiya ("Gibier Kishiiya", {
                                                         {"Geschmorte Schwarzbaerentatze", 1113.00},
@@ -61,9 +57,9 @@ int main()
         Location::printAlleLocations();
         std::cout << "\n-----------------------------------------------------------------\n" << std::endl;
 
-    }// hier wird Scope verlassen und alle Elemente mit Destruktor automatisch zerstört
+    } // scope is left, objects destroyed with destructor
 
-    // hier zur Kontrolle die Abfrage nach dem Status von Personen & Locations
+    // control if desctructor and all counters worked
     std::cout << "Anzahl der Locations: " << Location::getAnzahlLocations() << std::endl;
     std::cout << "Anzahl der Personen: " << Person::getAnzahlPersonen() << std::endl;
     Person::printAllePersonen();
