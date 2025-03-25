@@ -2,12 +2,9 @@
 #include <algorithm>
 #include "location.h"
 
-// Konstruktor ================================================================================
 #pragma region KONSTRUKTOREN {
-// Beginn eines Formatblocks zur Übersicht Konstruktoren
 
-// Konstruktoren ==============================================================================
-std::vector<Location*> Location::alleLocationsVector_; // erfasst alle instanzierten Locations
+std::vector<Location*> Location::alleLocationsVector_;
 
 Location::Location(const std::string& name, const std::map<std::string, double>& angebot)
     : name_(name), angebot_(angebot){
@@ -16,14 +13,14 @@ Location::Location(const std::string& name, const std::map<std::string, double>&
     alleLocationsVector_.push_back(this);
 }
 
-// Rule of 5 mit Definitionen =================================================================
-// Kopierkonstruktor
+// Rule of 5 =============================================================================
+// copy constructor
 Location::Location(const Location& other)
     : name_(other.name_), angebot_(other.angebot_) {
-    anzahlLocations_++; // bei Kopie eine Location mehr, logisch
+    anzahlLocations_++;
 }
 
-// Kopierzuweisungskonstruktor
+// copy assignment constructor
 Location& Location::operator=(const Location& other) {
     if (this == &other) return *this;
     name_ = other.name_;
@@ -31,21 +28,19 @@ Location& Location::operator=(const Location& other) {
     return *this;
 }
 
-// Verschiebekonstruktor, sollte laut Aufgabe deaktiviert sein, aber dann geht
-// die Operatorüberladung nicht mehr so einfach, daher wieder aktiviert;
-// er wird auch verwendet, denn wenn mit = delete deaktiviert, kann nicht mehr
-// kompiliert werden!!!
-// im cmake-file Optimierung deaktivieren:
-// "target_compile_options(OOP_Cpp_Location_Restaurant PRIVATE -fno-elide-constructors)"
-// , dann kann man auch den Output sehen an der Stelle
+// Move constructor: can not be be disabled because operator overloading,
+// disabling it with `= delete` prevents compilation!  
+// To disable optimization in the CMake file:  
+// "target_compile_options(OOP_Cpp_Location_Restaurant PRIVATE -fno-elide-constructors)"  
+// This allows the output to be visible at that point.
 Location::Location(Location&& other) noexcept
     : name_(std::move(other.name_)), angebot_(std::move(other.angebot_)) {
     std::cout << "VERSCHIEBENKONSTRUKTOR AUFGERUFEN####################" << std::endl;
-    // der cout wird wegen "Copy Epsilon Optimierung" normalerweise nicht ausgegeben
+    // cout is usually not printed due to "Copy Elision Optimization
 }
 
-/* auch hier auskommentiert da mit "= delete" in location.h deaktiviert
-// Verschiebezuweisungsoperator
+/* with "= delete" in location.h deactivated thus not used
+// move assignment constructor
 Location& Location::operator=(Location&& other) noexcept {
     if (this == &other) return *this;  // Handle self-assignment
     name_ = std::move(other.name_);
@@ -53,25 +48,25 @@ Location& Location::operator=(Location&& other) noexcept {
     return *this;
 }*/
 
-// Destruktor (bei Nichtgefallen und Mangelhygiene im Lokal)
+// destructor
 Location::~Location(){
-    std::cout << "Die Location " << name_ << " wurde wegen "
-                                             "mangelnder Hygiene von Gordon Ramsay gesprengt. Na toll!\n" << std::endl;
+    std::cout << "Die Location " << name_ 
+              << " wurde wegen mangelnder Hygiene von Gordon Ramsay gesprengt. Na toll!\n" 
+              << std::endl;
     anzahlLocations_--;
 
+    // remove location from vector
     auto it = std::find(alleLocationsVector_.begin(), alleLocationsVector_.end(), this);
     if (it != alleLocationsVector_.end()) {
         alleLocationsVector_.erase(it);
     }
 }
 
-// Ende eines Formatblocks zur Übersicht Konstruktoren
 #pragma endregion KONSTRUKTOREN }
 
-// Getter und Setter ==========================================================================
+
 #pragma region GETTER & SETTER {
 
-// Getter Definitionen ------------------------------------------------------------------------
 std::string Location::getName() const
 {
     return name_;
@@ -91,10 +86,9 @@ int Location::getAnzahlLocations(){
     return anzahlLocations_;
 };
 
-// Setter Definitionen -----------------------------------------------------------------------
 void Location::setName(const std::string &newName)
 {
-    this->name_ = newName; // geht mit this-> oder ohne weil name_ eindeutig Klassenaatribut ist
+    this->name_ = newName;
 }
 
 void Location::setAngebot(const std::map<std::string, double> &newAngebot)
@@ -109,9 +103,9 @@ void Location::setEinnahmen(const double& newEinnahmen)
 
 #pragma endregion Getter & Setter }
 
-// Klassenmethoden definieren =================================================================
+
 #pragma region METHODEN {
-// Ausgabemethode für das köstliche Menü unserer realen Locations!
+
 void Location::showAngebot() const{
     std::cout << "Die Location " << this->getName() << " hat folgendes Menue:\n " << std::endl;;
 
@@ -133,27 +127,22 @@ void Location::printAlleLocations() {
     }
 }
 
-
-
 #pragma endregion METHODEN }
 
-// Operatorüberladungen =======================================================================
+
 #pragma region OPERATORÜBERLADUNGEN {
 
-// Operatorüberladung für +
 Location Location::operator+(const Location& anderer) const {
     std::map<std::string, double> kombiniertesAngebot = angebot_;
 
-    // Füge die Gerichte des anderen Menüs hinzu
     for (const auto& item : anderer.angebot_) {
-        kombiniertesAngebot[item.first] = item.second;  // Überschreibt bei doppelten Einträgen
+        kombiniertesAngebot[item.first] = item.second;
     }
 
-    // Erstelle eine neue Location mit dem kombinierten Menü
     Location kombinierteLocation(name_ + " & " + anderer.name_, kombiniertesAngebot);
-    return kombinierteLocation; // hier greift der Verschiebekonstruktor im Hintergrund!!!
-}                               // wenn deaktiviert lässt sich hier sonst keine Location
-// mit return zurückgeben und Locationzähler sowie Vector-
-// Liste übernehmen die kombinierte Location nicht
+    return kombinierteLocation; // The move constructor is applied in the background here 
+}                               // If disabled, a Location cannot be returned,  
+// and the Location counter as well as the vector list  
+// will not take over the combined Location.
 
 #pragma endregion OPERATORÜBERLADUNGEN }
