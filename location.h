@@ -26,7 +26,6 @@ public:
     Location& operator=(const Location& other);
     Location(Location&& other) noexcept;
     Location& operator=(Location&& other) noexcept = delete;
-
     ~Location();
 
 #pragma endregion KONSTRUKTOREN }
