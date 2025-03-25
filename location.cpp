@@ -6,7 +6,7 @@
 #pragma region KONSTRUKTOREN {
 // Beginn eines Formatblocks zur Übersicht Konstruktoren
 
-// Konstruktor nach Aufgabenvorgabe mit =======================================================
+// Konstruktoren ==============================================================================
 std::vector<Location*> Location::alleLocationsVector_; // erfasst alle instanzierten Locations
 
 Location::Location(const std::string& name, const std::map<std::string, double>& angebot)
