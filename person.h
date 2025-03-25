@@ -9,57 +9,50 @@
 class Person
 {
 private:
-    // Klassenattribute nach Vorgabe festgelegt ================================
     std::string name_;
     double kontostand_ = 100;
-    inline static int anzahlPersonen_ = 0; // mit inline kann man hier bereits deklarieren
+    inline static int anzahlPersonen_ = 0;
     static std::vector<Person*> allePersonenVector_;
 
 public:
-// Konstruktoren ===========================================================
-#pragma region KONSTRUKTOREN {
-    // Konstruktor nach Vorgabe "Name über Konstruktor zuweisen" ===============
-    Person(const std::string& name);
 
-    // Eigener Konstruktor für Rich People =====================================
+#pragma region KONSTRUKTOREN {
+    Person(const std::string& name);
     Person(const std::string& name, const double& kontostand);
 
-    // Rule of 5 Deklarationen =================================================
-    // Kopierkonstruktor
+    // Rule of 5  ==============================================================
+    // copy constructor
     Person(const Person& other) = delete;
 
-    // Kopierzuweisungsoperator
+    // copy assignment constructor
     Person& operator=(const Person& other) = delete;
 
-    // Verschiebekonstruktor
+    // move constructor
     Person(Person&& other) noexcept = delete;
 
-    // Verschiebezuweisungsoperator
+    // move assignment constructor
     Person& operator=(Person&& other) noexcept = delete;
 
-    // Destruktor ==============================================================
+    // destructor ==============================================================
     ~Person();
 
 #pragma endregion KONSTRUKTOREN }
 
 
-    // Getter & Setter ===========================================================
 #pragma region GETTER & SETTER {
 
-    // Deklaration der Getter ==================================================
     std::string getName() const;
     double getKontostand() const;
     static int getAnzahlPersonen();
     static const std::vector<Person*>& getAllePersonen();
 
-    // Deklaration der Setter ==================================================
     void setName(const std::string &newName);
     void setKontostand(const double& newKontostand);
 
 #pragma endregion GETTER & SETTER }
 
 
-    // Klassen-Methoden ========================================================
+    // class methods =========================================================
     void dining(Location& location);
     double vomMenueAussuchen(const std::map<std::string, double>& menue);
     void kontostandAktualisieren(const double& preis);
@@ -67,4 +60,4 @@ public:
 
 };
 
-#endif // PERSON_H
+#endif
