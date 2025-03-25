@@ -9,7 +9,9 @@ actually used even though no `std::cout` for control is shown.
 
 If you want to see the `std::cout` you need to include the line:
 
-`target_compile_options(OOP_Cpp_Location_Restaurant PRIVATE -fno-elide-constructors)`
+`target_compile_options(OOP_Cpp_Location_Restaurant PRIVATE -fno-elide-constructors)` (in my case)
+
+or in general: `target_compile_options(PROJECT_NAME PRIVATE -fno-elide-constructors)`
 
 into the cmake file. Thus the Copy Epsilon Optimization is deactivated for testing and you can see
 the `std:cout` now. To show where it has to be put in i have included my cmake file. Note that you have
