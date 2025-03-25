@@ -59,7 +59,7 @@ int main()
 
     } // scope is left, objects destroyed with destructor
 
-    // control if desctructor and all counters worked
+    // control if destructor and counters worked
     std::cout << "Anzahl der Locations: " << Location::getAnzahlLocations() << std::endl;
     std::cout << "Anzahl der Personen: " << Person::getAnzahlPersonen() << std::endl;
     Person::printAllePersonen();
