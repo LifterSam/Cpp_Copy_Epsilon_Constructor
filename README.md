@@ -40,7 +40,7 @@ It displays the menu to the guest.
 
 - The Rule of Five is implemented:
 In Person, all copy and move constructors are disabled.
-In Location, only move constructors are disabled.
+In Location, only move the assignment constructor is disabled.
 A static counter variable is used in each class within the constructors and destructors.
 The + operator is overloaded in Location to merge two menus.
 A function is included that returns a vector of n instances of either Person or Location.
